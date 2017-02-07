@@ -12,20 +12,20 @@ Note: see project for more examples.
 ```bash
 git clone https://github.com/Neilpang/acme.sh.git
 cd acme.sh
-./acme.sh --install   # creates a .acme.sh directory
+./acme.sh --install   # creates .acme.sh directory in home directory
 ```
 Note: make the first -d entry your zmhostname
 ```bash
 chmod 755 .acme.sh   #to help zimbra user pull certs
 acme.sh --issue --dns -d mail.example.com mail.example.net -d tmail.example.com
 ```
-Add txt records to zones from output of commands above
+Add DNS txt records to zones from output of command above
 ```bash
 acme.sh --renew -d mail.example.com -d mail.example.net -d tmail.example.com
 ```
 You now have certificates that can be used by zimbra. Certificates are installed in .acme.sh using the first -d entry as the directory name ie. mail.example.com in this example.
 
-Note: if you don't mind taking an outage initially witih zimbra. The following method might be simpler. It assumes that you have a single host architecture.
+Note: if you don't mind taking an outage witih zimbra. The following method might be simpler. It assumes that you have a single host architecture.
 ```bash
 acme.sh --issue --standalone -d mail.example.com -d mail.example.net -d tmail.example.com
 ```
@@ -57,6 +57,7 @@ exit # comment this out after adjusting the top two values
 Install Certificates. Script will stop at each step waiting for a CR when d=1
 Run as zimbra user:
 ```bash
+su - zimbra
 ./deploy-zimbra-letsencrypt.sh
 ```
 
