@@ -21,8 +21,6 @@ cd acme.sh
 Note: make the first -d entry your zmhostname
 ```bash
 chmod 755 .acme.sh   #to help zimbra user pull certs
-```
-```bash
 acme.sh --issue --dns -d mail.example.com mail.example.net -d tmail.example.com
 ```
 Add txt records to zones from output of commands above
@@ -30,6 +28,12 @@ Add txt records to zones from output of commands above
 acme.sh --renew -d mail.example.com -d mail.example.net -d tmail.example.com
 ```
 You now have certificates that can be used by zimbra. Certificates are installed in .acme.sh using the first -d entry... ie. mail.example.com
+
+Note: if you don't mind taking an outage initially witih zimbra. This might be simpler. It assumes that you have a single host architecture.
+```bash
+acme.sh --standalone --issue -d mail.example.com -d mail.example.net -d tmail.example.com
+```
+Note: this will operate at port 80 which is why zimbra needs to be shutdown and will handle the challenge/Repsonse automatically without any extra steps.
 
 # Set up  deploy-zimbra-letsencrypt.sh
 As root:
