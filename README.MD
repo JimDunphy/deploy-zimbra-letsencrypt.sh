@@ -24,30 +24,40 @@ http://forums.zimbra.org/viewtopic.php?f=15&t=60781&sid=2a91c5a8f518e7b9d8147b8f
 Do the following from your home directory.
 ```bash
 git clone https://github.com/Neilpang/acme.sh.git
+```
 ```bash
 cd acme.sh
+```
 ```bash
 ./acme.sh --install
+```
 Note: make the first -d entry your zmhostname
 ```bash
 chmod 755 .acme.sh   #to help later by zimbra user
+```
 ```bash
 acme.sh --issue --dns -d mail.example.com mail.example.net -d tmail.example.com
+```
 Add txt records to zones from output of commands above
 ```bash
 acme.sh --renew -d mail.example.com -d mail.example.net -d tmail.example.com
+```
 You now have certificates that can be used by zimbra.
 
 # Set up  deply-zimbra-letsencrypt.sh
 As root:
 ```bash
 mkdir /opt/letsencrypt
+```
 ```bash
 chown zimbra /opt/letscencrypt
+```
 ```bash
 cd /opt/letsencrypt
+```
 ```bash
 git clone https://github.com:JimDunphy/deploy-zimbra-letsencrypt.sh.git
+```
 modify the following variables in deploy-zimbra-letsencrypt.sh
 
 
