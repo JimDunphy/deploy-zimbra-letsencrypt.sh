@@ -33,15 +33,15 @@ You now have certificates that can be used by zimbra. Certificates are installed
 # Set up  deply-zimbra-letsencrypt.sh
 As root:
 ```bash
+su - 
 mkdir /opt/letsencrypt
-```
-```bash
 chown zimbra /opt/letscencrypt
+exit
 ```
+As zimbra user:
 ```bash
+su - zimbra
 cd /opt/letsencrypt
-```
-```bash
 git clone https://github.com:JimDunphy/deploy-zimbra-letsencrypt.sh.git
 ```
 modify the following variables in deploy-zimbra-letsencrypt.sh
@@ -53,7 +53,11 @@ user="/home/jdunphy" # ~user/.acme.sh --- owner that runs acme.sh
 d=1  # change to 0 if run from cron
 exit # comment this out after adjusting the top two values
 ```
-
+Install Certificates. Script will stop at each step waiting for a CR
+Run as zimbra user:
+```bash
+./deploy-zimbra-letsencrypt.sh
+```
 
 # Lessons Learned
 Goals from 6 months of deployement with zimbra and letsencrypt and a topic at:
