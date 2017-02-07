@@ -1,10 +1,10 @@
 # deploy-zimbra-letsencrypt.sh
 
 # Purpose
-Simple method to install letsencrypt certificates with Zimbra 8.7+ without installing excessive external packages and software. Keep it simple, flexible, and allow to choose best method for certs.  Note: Running zmcertmgr as the zimbra user makes method 8.7+ specific. This is an automated script that is run from cron.
+Simple method to install letsencrypt certificates with Zimbra 8.7+ without installing excessive external packages and software. Keep it simple, flexible, and allow to choose best method for certs.  Note: Running zmcertmgr as the zimbra user makes this method 8.7+ specific. This is an automated script that is run from cron. If the CERT hasn't met some minimum threshold (min), it will exit and is safe to call daily from cron.
 
 # Operation
-Letsencrypt uses an automated and real-time methods to create your Certificate BUT does require a challenge/verification to establish who you say you are. There are various modes to accomplish this which generally require that you have a program to listen at port 80/443 on the machine you want the cert for. This isn't appropraite sometimes during the inital testing, etc. We document the DNS method below. See: https://github.com/Neilpang/acme.sh for a full list of supported modes. Choose the method that works best for you. Any of the methods will work with this script.
+Letsencrypt uses an automated and real-time methods to create Certificate BUT it does require a challenge/verification to establish who you say you are. There are various methods to accomplish this which generally require that you have a program to listen at port 80/443 on the machine you want the cert for. This isn't appropriate sometimes especially when first using/testing, etc. We document the DNS method and a standalone method below. See: https://github.com/Neilpang/acme.sh for a full list of supported modes. Choose the method that works best for you. Any of the methods will work with this script.
 
 # Set up acme.sh 
 This project is a self contained bash script to create letsencrypt certificates and can be intalled without root.  Do the following from your home directory.
