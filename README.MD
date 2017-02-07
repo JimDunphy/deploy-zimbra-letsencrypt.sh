@@ -98,11 +98,12 @@ http://forums.zimbra.org/viewtopic.php?f=15&t=60781&sid=2a91c5a8f518e7b9d8147b8f
 - Stay out of /opt/zimbra 
 - run as zimbra to reduce complexity
 - run as normal user for letsencrypt stuff
-- minimize my hooks to a single cron entry for zimbra
+- minimize hooks for zimbra as single cron entry
 - do not run as root
 - minimize downtime due to zimbra restart
 - decouple letsencrypt with automated zimbra script
 - support multi-domain, multi-architecture zimbra installs
 - support various methods of challege/response method for letsencrypt certs
+- automate creating IdentTrust chaing to reduce verification errors
 - Keep it simple
 
