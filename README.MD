@@ -27,13 +27,13 @@ Add txt records to zones from output of commands above
 ```bash
 acme.sh --renew -d mail.example.com -d mail.example.net -d tmail.example.com
 ```
-You now have certificates that can be used by zimbra. Certificates are installed in .acme.sh using the first -d entry... ie. mail.example.com
+You now have certificates that can be used by zimbra. Certificates are installed in .acme.sh using the first -d entry as the directory name ie. mail.example.com in this example.
 
-Note: if you don't mind taking an outage initially witih zimbra. This might be simpler. It assumes that you have a single host architecture.
+Note: if you don't mind taking an outage initially witih zimbra. The following method might be simpler. It assumes that you have a single host architecture.
 ```bash
-acme.sh --standalone --issue -d mail.example.com -d mail.example.net -d tmail.example.com
+acme.sh --issue --standalone -d mail.example.com -d mail.example.net -d tmail.example.com
 ```
-Note: this will operate at port 80 which is why zimbra needs to be shutdown and will handle the challenge/Repsonse automatically without any extra steps.
+Note: this will operate at port 80 which is why zimbra needs to be shutdown and will handle the challenge/Response automatically without any extra steps.
 
 # Set up  deploy-zimbra-letsencrypt.sh
 As root:
