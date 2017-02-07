@@ -30,7 +30,7 @@ acme.sh --renew -d mail.example.com -d mail.example.net -d tmail.example.com
 ```
 You now have certificates that can be used by zimbra. Certificates are installed in .acme.sh using the first -d entry... ie. mail.example.com
 
-# Set up  deply-zimbra-letsencrypt.sh
+# Set up  deploy-zimbra-letsencrypt.sh
 As root:
 ```bash
 su - 
@@ -48,16 +48,35 @@ modify the following variables in deploy-zimbra-letsencrypt.sh
 ```bash
 min=159	#when you want to restart zimbra - make large to force ie. 159 for testing
 domain="mail.example.com"
-user="/home/jdunphy" # ~user/.acme.sh --- owner that runs acme.sh
+user="/home/YourName" # ~user/.acme.sh --- owner that runs acme.sh
 # verbose output
 d=1  # change to 0 if run from cron
 exit # comment this out after adjusting the top two values
 ```
-Install Certificates. Script will stop at each step waiting for a CR
+Install Certificates. Script will stop at each step waiting for a CR when d=1
 Run as zimbra user:
 ```bash
 ./deploy-zimbra-letsencrypt.sh
 ```
+
+# Renewal 
+Note: needs to be done 59 days or less or will have to repeat challenge/Response.  As user that installed acme.sh
+```bash
+acme.sh --force --renew -d mail.example.com -d mail.example.net -d tmail.example.com
+```
+
+# Unattended use
+- Run renewal every 59 days or less
+- Run deploy-zimbra-letscencrypt.sh every 60 days or so
+- Bonus: add checks to see that new certs were created
+
+# Other uses or multi-host
+- use different server to create letsencrypt certs
+- copy to remote location on each server
+- have each server call deploy-zimbra-letscencrypt.sh
+
+# Bugs
+Can call deploy-zimbra-letscencrypt.sh as often as you want with valid CERTs but if the cert is expired, zimbra will not come up. Solution: create valid CERTsand run again.
 
 # Lessons Learned
 Goals from 6 months of deployement with zimbra and letsencrypt and a topic at:
