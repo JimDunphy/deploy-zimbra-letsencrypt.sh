@@ -81,11 +81,15 @@ run from cron
 - copy to remote location on each server
 - have each server call deploy-zimbra-letscencrypt.sh
 
-# tricks
+# Tricks
 Can verify a new server install with users when using the zimbra proxy by appending this to the end of your normal list when creating certificates. That allows you to verify the actual CERT you will be using in production without having to install it first during testing.
 ```bash
 -d tmail.example.com
 ```
+
+- Can practice creating certificates without forcing zimbra to reload them
+- Can practice loading certificates without forcing letsencrypt for issuing them
+- letsencrypt has some limits: 100 domains per certificate, 500 certificates per ip address and 20 different certs per week. see: https://letsencrypt.org/docs/rate-limits/
 
 # Bugs
 Can call deploy-zimbra-letscencrypt.sh as often as you want with valid CERTs but if the cert is expired, zimbra will not come up. Solution: create valid CERTs and run again.
