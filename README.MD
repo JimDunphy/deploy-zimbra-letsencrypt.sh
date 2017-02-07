@@ -1,13 +1,14 @@
 # deploy-zimbra-letsencrypt.sh
 
 # Purpose
-Simple method to install letsencrypt certificates with Zimbra 8.7+ without installing excessive external packages and software. Keep it simple, flexible, and allow to choose best method for certs.  Note: Running zmcertmgr as zimbra makes this 8.7+ specific. This is an automated method that is run from cron.
+Simple method to install letsencrypt certificates with Zimbra 8.7+ without installing excessive external packages and software. Keep it simple, flexible, and allow to choose best method for certs.  Note: Running zmcertmgr as the zimbra user makes method 8.7+ specific. This is an automated script that is run from cron.
 
 # Operation
-Letsencrypt is an automated and real-time method to create a Certificate but does require a challenge/verification to establish who you say you are. There are various modes to accomplish which generally require that you have a program listein at port 80/443 on the machine you want the cert for. This isn't appropraite sometimes, and we document the DNS method below. See: https://github.com/Neilpang/acme.sh for a full list of supported modes.
+Letsencrypt uses an automated and real-time methods to create your Certificate BUT does require a challenge/verification to establish who you say you are. There are various modes to accomplish this which generally require that you have a program to listen at port 80/443 on the machine you want the cert for. This isn't appropraite sometimes during the inital testing, etc. We document the DNS method below. See: https://github.com/Neilpang/acme.sh for a full list of supported modes. Choose the method that works best for you. Any of the methods will work with this script.
 
 # Set up acme.sh 
-Do the following from your home directory.
+This project is a self contained bash script to create letsencrypt certificates and can be intalled without root.  Do the following from your home directory.
+Note: see project for more examples.
 ```bash
 git clone https://github.com/Neilpang/acme.sh.git
 ```
