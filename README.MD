@@ -65,18 +65,25 @@ Note: needs to be done 59 days or less or will have to repeat challenge/Response
 acme.sh --force --renew -d mail.example.com -d mail.example.net -d tmail.example.com
 ```
 
-# Unattended use
-- Run renewal every 59 days or less
+# Unattended Operation 
+run from cron
+- Run renewal every 59 days or less 
 - Run deploy-zimbra-letscencrypt.sh every 60 days or so
-- Bonus: add checks to see that new certs were created
+- Bonus: add checks to alert that new cert wasn't created
 
 # Other uses or multi-host
 - use different server to create letsencrypt certs
 - copy to remote location on each server
 - have each server call deploy-zimbra-letscencrypt.sh
 
+# tricks
+Can verify a new server install with users when using the zimbra proxy by appending this to the end of your normal list when creating certificates. That allows you to verify the actual CERT you will be using in production without having to install it first during testing.
+```bash
+-d tmail.example.com
+```
+
 # Bugs
-Can call deploy-zimbra-letscencrypt.sh as often as you want with valid CERTs but if the cert is expired, zimbra will not come up. Solution: create valid CERTsand run again.
+Can call deploy-zimbra-letscencrypt.sh as often as you want with valid CERTs but if the cert is expired, zimbra will not come up. Solution: create valid CERTs and run again.
 
 # Lessons Learned
 Goals from 6 months of deployement with zimbra and letsencrypt and a topic at:
