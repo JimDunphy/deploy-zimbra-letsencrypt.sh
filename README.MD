@@ -47,7 +47,7 @@ git clone https://github.com:JimDunphy/deploy-zimbra-letsencrypt.sh.git
 ```
 modify the following variables in deploy-zimbra-letsencrypt.sh
 ```bash
-min=60	#to force zimbra to reload, make large for testing 
+min=60	#days for CERT expire before will load new certificate. Make large for testing (ie. 10000)
 domain="mail.example.com"
 user="/home/YourName" # ~user/.acme.sh --- owner that runs acme.sh
 # verbose output
@@ -71,22 +71,23 @@ acme.sh --force --renew -d mail.example.com -d mail.example.net -d tmail.example
 run from cron
 - Run renewal every 59 days or less 
 - Run deploy-zimbra-letscencrypt.sh every 60 days or so
-- Bonus: add checks to alert that new cert wasn't created
+- Bonus: add checks to alert of any failures of acme.sh/CERTs
 
 # Other uses or multi-host
 - use different server to create letsencrypt certs
-- copy to remote location on each server
+- copy to remote location on each server (ssh/puppet/etc)
 - have each server call deploy-zimbra-letscencrypt.sh
 
 # Tricks
-Can verify a new server install with users when using the zimbra proxy by appending this to the end of your normal list when creating certificates. That allows you to verify the actual CERT you will be using in production without having to install it first during testing.
+Can verify a new server install with users when using the zimbra proxy by appending this to the end of your normal list when creating certificates. That allows you to verify the actual CERT you will be using in production without having to install it first during testing on your production server[s].
 ```bash
 -d tmail.example.com
 ```
 
-- Can practice creating certificates without forcing zimbra to reload them
-- Can practice loading certificates without forcing letsencrypt for issuing them
+- Can practice creating certificates without forcing zimbra to be involved
+- Can practice loading certificates without forcing letsencrypt to be involved
 - letsencrypt has some limits: 100 domains per certificate, 500 certificates per ip address and 20 different certs per week. see: https://letsencrypt.org/docs/rate-limits/
+- deploy-zimbra-letsencrypt.sh cam be run every at any interval but will only load a new certificate and restart zimbra when the min value has been reached. 
 
 # Bugs
 Can call deploy-zimbra-letscencrypt.sh as often as you want with valid CERTs but if the cert is expired, zimbra will not come up. Solution: create valid CERTs and run again.
