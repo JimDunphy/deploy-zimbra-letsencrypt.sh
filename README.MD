@@ -11,11 +11,7 @@ This project is a self contained bash script to create letsencrypt certificates 
 Note: see project for more examples.
 ```bash
 git clone https://github.com/Neilpang/acme.sh.git
-```
-```bash
 cd acme.sh
-```
-```bash
 ./acme.sh --install   # creates a .acme.sh directory
 ```
 Note: make the first -d entry your zmhostname
