@@ -51,7 +51,7 @@ git clone https://github.com:JimDunphy/deploy-zimbra-letsencrypt.sh.git
 ```
 modify the following variables in deploy-zimbra-letsencrypt.sh
 ```bash
-min=159	#when you want to restart zimbra - make large to force ie. 159 for testing
+min=60	#to force zimbra to reload, make large for testing 
 domain="mail.example.com"
 user="/home/YourName" # ~user/.acme.sh --- owner that runs acme.sh
 # verbose output

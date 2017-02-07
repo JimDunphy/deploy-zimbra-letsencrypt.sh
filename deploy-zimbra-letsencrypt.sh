@@ -45,10 +45,10 @@
 # NOTE (4 items to configure):
 # %%% This needs to below the current threashold for challenge/validation
 #     It is currently set for 60 days from letsencrypt to match when
-#     we will be getting new certs.
-min=159	#when you want to restart zimbra - make large to force ie. 159 for testing
+#     we will be getting new certs. This is the days to the CERT will expire.
+min=60 #make larger to make zimbra load a new CERT
 domain="mail.example.com"
-user="/home/jdunphy" # ~user/.acme.sh --- owner that runs acme.sh
+user="/home/YourName" # ~user/.acme.sh --- owner that runs acme.sh
 # verbose output
 d=1  # change to 0 if run from cron
 exit # comment this out after adjusting the top two values
