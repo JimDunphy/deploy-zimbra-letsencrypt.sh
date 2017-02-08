@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Author: Jim Dunphy <jad@aesir.com>
+# Author: Jim Dunphy <jad aesir.com>
 # License (ISC): It's yours. Enjoy
 # Date: 10/9/2016
-#   updated: 2/7/2017 - decoupled cert renewal and comments
+#   updated: 2/7/2017 - decoupled cert renewal and added more comments
 
 #
 # Run as zimbra (only for Zimbra 8.7+)
