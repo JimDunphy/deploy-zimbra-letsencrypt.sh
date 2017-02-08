@@ -53,7 +53,8 @@ user="/home/YourName" # ~user/.acme.sh --- owner that runs acme.sh
 d=1  # change to 0 if run from cron
 exit # comment this out after adjusting the top two values
 ```
-Install Certificates. Script will stop at each step waiting for a CR when d=1
+# Install Certificates
+Script will stop at each step waiting for a CR when d=1
 Run as zimbra user:
 ```bash
 su - zimbra
