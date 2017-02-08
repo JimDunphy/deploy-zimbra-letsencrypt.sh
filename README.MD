@@ -104,6 +104,7 @@ http://forums.zimbra.org/viewtopic.php?f=15&t=60781&sid=2a91c5a8f518e7b9d8147b8f
 - decouple letsencrypt with automated zimbra script
 - support multi-domain, multi-architecture zimbra installs
 - support various methods of challege/response method for letsencrypt certs
-- automate creating IdentTrust chaing to reduce verification errors
+- automate creating IdentTrust chain to reduce zimbra verification errors
+- workaround zmcertmgr chdir bug by copying certs first
 - Keep it simple
 
