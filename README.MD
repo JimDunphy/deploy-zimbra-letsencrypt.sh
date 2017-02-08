@@ -12,7 +12,7 @@ Note: see project for more examples.
 ```bash
 git clone https://github.com/Neilpang/acme.sh
 cd acme.sh
-./acme.sh --install   # creates .acme.sh directory in home directory
+./acme.sh --install --nocron  # creates .acme.sh directory in home directory
 ```
 Note: make the first -d entry your zmhostname
 ```bash
