@@ -10,7 +10,7 @@ Letsencrypt uses an automated and real-time methods to create Certificate BUT it
 This project is a self contained bash script to create letsencrypt certificates and can be intalled without root.  Do the following from your home directory.
 Note: see project for more examples.
 ```bash
-git clone https://github.com/Neilpang/acme.sh.git
+git clone https://github.com/Neilpang/acme.sh
 cd acme.sh
 ./acme.sh --install   # creates .acme.sh directory in home directory
 ```
@@ -32,18 +32,18 @@ acme.sh --issue --standalone -d mail.example.com -d mail.example.net -d tmail.ex
 Note: this will operate at port 80 which is why zimbra needs to be shutdown and will handle the challenge/Response automatically without any extra steps.
 
 # Set up  deploy-zimbra-letsencrypt.sh
-As root:
-```bash
-su - 
-mkdir /opt/letsencrypt
-chown zimbra /opt/letscencrypt
-exit
-```
 As zimbra user:
 ```bash
 su - zimbra
-cd /opt/letsencrypt
-git clone https://github.com:JimDunphy/deploy-zimbra-letsencrypt.sh.git
+cd /tmp
+git clone https://github.com/JimDunphy/deploy-zimbra-letsencrypt.sh.git letsencrypt
+```
+As root:
+```bash
+su - 
+mv /tmp/letsencrypt /opt/
+chown zimbra /opt/letscencrypt
+exit
 ```
 modify the following variables in deploy-zimbra-letsencrypt.sh
 ```bash
