@@ -84,7 +84,10 @@ Can verify a new server install with users when using the zimbra proxy by append
 -d tmail.example.com
 ```
 
-- use --renew-hook when renewing with acme.sh to call deploy-zimbra-letsencrypt.sh to install. Note: modify min variable with deploy-zimbra-letsencrypt.sh
+- use --issue --renew-hook when renewing with acme.sh to call deploy-zimbra-letsencrypt.sh to install. Note: modify min variable with deploy-zimbra-letsencrypt.sh
+```Bash
+acme.sh --issue --renew-hook /opt/letsencrypt/deploy-zimbra-letsencrypt.sh
+```
 - Can practice creating certificates without forcing zimbra to be involved
 - Can practice loading certificates without forcing letsencrypt to be involved
 - letsencrypt has some limits: 100 domains per certificate, 500 certificates per ip address and 20 different certs per week. see: https://letsencrypt.org/docs/rate-limits/
