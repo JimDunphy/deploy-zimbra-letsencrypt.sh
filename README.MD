@@ -88,6 +88,8 @@ Can verify a new server install with users when using the zimbra proxy by append
 ```Bash
 acme.sh --issue --renew-hook /opt/letsencrypt/deploy-zimbra-letsencrypt.sh
 ```
+- use --dns and a provider for automatic insertion/removal. Modify 
+account.conf in .acme.sh ... More information at: https://github.com/Neilpang/acme.sh/tree/master/dnsapi
 - Can practice creating certificates without forcing zimbra to be involved
 - Can practice loading certificates without forcing letsencrypt to be involved
 - letsencrypt has some limits: 100 domains per certificate, 500 certificates per ip address and 20 different certs per week. see: https://letsencrypt.org/docs/rate-limits/
