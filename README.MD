@@ -62,7 +62,7 @@ su - zimbra
 ```
 
 # Renewal 
-Note: needs to be done 59 days or less or will have to repeat challenge/Response.  As user that installed acme.sh
+Note: needs to be done 59 days or less or will have to repeat challenge/Response.  Run with user that installed acme.sh
 ```bash
 acme.sh --force --renew -d mail.example.com -d mail.example.net -d tmail.example.com
 ```
