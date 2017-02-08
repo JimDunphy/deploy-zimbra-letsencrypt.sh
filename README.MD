@@ -35,8 +35,7 @@ Note: this will operate at port 80 which is why zimbra needs to be shutdown and 
 As zimbra user:
 ```bash
 su - zimbra
-cd /tmp
-git clone https://github.com/JimDunphy/deploy-zimbra-letsencrypt.sh.git letsencrypt
+git clone https://github.com/JimDunphy/deploy-zimbra-letsencrypt.sh.git /tmp/letsencrypt
 ```
 As root:
 ```bash
