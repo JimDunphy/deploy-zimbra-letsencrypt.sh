@@ -1,6 +1,6 @@
-= Single Server Zimbra - fully automated
+# Single Server Zimbra - fully automated
 
-= Initial Setup
+# Initial Setup
 Install acme.sh as different user than zimbra.
 ie) /home/XXX is the home of user XXX
 
@@ -15,7 +15,7 @@ At this point we have acme.sh checking every day via cron to see if the certific
 
 Next we create our first Letsencrypt certificates. 
 
-= Method 1
+# Method 1
 We will use the stand-alone method. Login as the user that acme.sh was installed as. Standalone listens on port 80 and is used by letsencrypt to verify you are who you say you are. To facilitate this, we stop the proxy that is listening at this port. 
 
 ```bash
@@ -28,7 +28,7 @@ zmproxyctl start
 ```
 At this point we have a directory /home/XXX/.acme.sh/mail.example.com that contains the certificate.
 
-= Method 2
+# Method 2
 We will use the DNS method.  Does not require initial outage of zimbra.
 
 ```bash
@@ -41,7 +41,7 @@ acme.sh --renew --dns -d mail.example.com mail.example.net
 
 At this point we have a directory /home/XXX/.acme.sh/mail.example.com that contains the certificate. You can remove the TXT records from the zone. They are not needed anymore.
 
-= Last Step for acme.sh
+# Last Step for acme.sh
 Modify the crontab entry that was created and add --force. Change it to say 59 days.  
 ```bash
 crontab -e
@@ -58,12 +58,12 @@ acme.sh --force --cron --home /home/XXX/.acme.sh
 
 At this point you have a renewed certificate.  
 
-= Zimbra
+# Zimbra
 Follow the directions at https://github.com/JimDunphy/deploy-zimbra-letsencrypt.sh how to setup this up.
 
 The deploy-zimbra-letsencrypt.sh uses 3-4 configuration variables to take the certificates in /home/XXX/.acme.sh and install them.  It doesn't care which method you used to create those certificates. It has logic to check the certificates and update them when it is time. First run it by hand to verify your setup. It will stop before each step to allow you to see if there are any errors.
 
-= Modify deploy-zimbra-letsencrypt.sh 
+# Modify deploy-zimbra-letsencrypt.sh 
 There are 4 variables that define its function.
 
 - min=60  
@@ -79,7 +79,7 @@ This is the user home directory and is used to copy that directory from /home/XX
 - d=1
 This will provide output of what is happening and will stop after each step. You can stop it at anytime. Set this to d=0 when you add this to cron
 
-= Updating zimbra and its certificates
+# Updating zimbra and its certificates
 You run it without any arguments
 ```bash
 /opt/letsencrypt/deploy-zimbra-letsencrypt.sh
