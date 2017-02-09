@@ -84,9 +84,14 @@ Can verify a new server install with users when using the zimbra proxy by append
 -d tmail.example.com
 ```
 
-- use --issue --renew-hook when renewing with acme.sh to call deploy-zimbra-letsencrypt.sh to install. Note: modify min variable with deploy-zimbra-letsencrypt.sh
+- use --issue --renew-hook when renewing with acme.sh to call deploy-zimbra-letsencrypt.sh to install. Note: modify min variable with deploy-zimbra-letsencrypt.sh and install acme.sh as zimbra. (NOT TESTED)
 ```Bash
 acme.sh --issue --renew-hook /opt/letsencrypt/deploy-zimbra-letsencrypt.sh
+```
+Another option if acme.sh runs as a different user.
+```Bash
+echo 'acme.sh-user ALL = (zimbra) NOPASSWD: /opt/letsencrypt/' >> /etc/sudoers
+acme.sh --issue --renew-hook "sudo -u zimbra /opt/letsencrypt/deploy-zimbra-letsencrypt.sh"
 ```
 - use --dns and a provider for automatic insertion/removal. Modify 
 account.conf in .acme.sh ... More information at: https://github.com/Neilpang/acme.sh/tree/master/dnsapi
