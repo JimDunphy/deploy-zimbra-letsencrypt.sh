@@ -90,7 +90,7 @@ acme.sh --issue --renew-hook /opt/letsencrypt/deploy-zimbra-letsencrypt.sh
 ```
 Another option if acme.sh runs as a different user.
 ```Bash
-echo 'acme.sh-user ALL = (zimbra) NOPASSWD: /opt/letsencrypt/' >> /etc/sudoers
+echo 'acme.sh-user ALL = (zimbra) NOPASSWD: /opt/letsencrypt/deploy-zimbra-letsencrypt.sh' >> /etc/sudoers
 acme.sh --issue --renew-hook "sudo -u zimbra /opt/letsencrypt/deploy-zimbra-letsencrypt.sh"
 ```
 - use --dns and a provider for automatic insertion/removal. Modify 
