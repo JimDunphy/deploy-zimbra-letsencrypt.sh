@@ -60,8 +60,12 @@ acme.sh --force --cron --home /home/XXX/.acme.sh
 
 At this point you have a renewed certificate.  
 
-# Zimbra
-Follow the directions at https://github.com/JimDunphy/deploy-zimbra-letsencrypt.sh how to setup this up.
+# Zimbra Script setup
+As zimbra user
+```bash
+su - zimbra
+git clone https://github.com/JimDunphy/deploy-zimbra-letsencrypt.sh.git /tmp/letsencrypt
+```
 
 The deploy-zimbra-letsencrypt.sh uses 3-4 configuration variables to take the certificates in /home/XXX/.acme.sh and install them.  It doesn't care which method you used to create those certificates. It has logic to check the certificates and update them when it is time. First run it by hand to verify your setup. It will stop before each step to allow you to see if there are any errors.
 
