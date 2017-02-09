@@ -15,7 +15,7 @@ At this point we have acme.sh checking every day via cron to see if the certific
 
 Next we create our first Letsencrypt certificates. 
 
-# Method 1
+# Method 1 (STANDALONE port 80)
 We will use the stand-alone method. Login as the user that acme.sh was installed as. Standalone listens on port 80 and is used by letsencrypt to verify you are who you say you are. To facilitate this, we stop the proxy that is listening at this port. 
 
 ```bash
@@ -24,11 +24,13 @@ zmproxyctl stop
 exit
 cd
 acme.sh --issue --standalone -d mail.example.com -d mail.example.net
+su - zimbra
 zmproxyctl start
+exit
 ```
 At this point we have a directory /home/XXX/.acme.sh/mail.example.com that contains the certificate.
 
-# Method 2
+# Method 2 (DNS)
 We will use the DNS method.  Does not require initial outage of zimbra.
 
 ```bash
