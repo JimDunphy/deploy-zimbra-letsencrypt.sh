@@ -73,10 +73,10 @@ The deploy-zimbra-letsencrypt.sh uses 3-4 configuration variables to take the ce
 There are 4 variables that define its function.
 
 - min=60  
-Normally, It will not update the certificate if its not older than 60 days leftbefore it will expire. If you want to force it to work, change this to something large ...say 1000
+Normally, It will not update the certificate if its not older than 60 days left before it will expire. If you want to force it to work, change this to something large ...say 1000
 
 - domain=mail.example.com
-This is the first -d entry you used when you created your domain with acme.sh. It should be the zmhostname. Change this entry to match this directory:
+This is the first -d entry you used when you created your domain with acme.sh. It normally should be the zmhostname. Change this entry to match this directory:
 /home/XXX.acme.sh/mail.example.com
 
 - user="/home/XXX'
@@ -91,10 +91,12 @@ You run it without any arguments
 /opt/letsencrypt/deploy-zimbra-letsencrypt.sh
 ```
 
-If will stop and restart zimbra at the end. You can repeat this as many times as it takes. To automate this, change the min=60 and d=0 in the script and run this from cron as the zimbra user. It will only install the certificate when the min time is 60 days so it can run every day if you like.
+If will stop and restart zimbra at the end. You can repeat this as many times as it takes. To automate this, change the min time min=60 and d=0 in the script and run this from cron as the zimbra user. So in the default configuration... It will only install the certificate when the certificate is about to expire in 'min days' or 60 for this example.
 
-This method gives you 1 day to verify your certificates are being created as expected but in reality you have already tested this and know it works.  
+This method gives you 1 day to verify your certificates if you are running acme.sh every 59 days but in reality you have already tested this and know it works.  In another example, we will show how to use the renew-hook option of acme.sh
 
-This is a work in progress... Will show other methods including a central server where you do not have to install .acme.sh on any zimbra server and just the deploy-zimbra-letsencrypt.sh script.
+This document is a work in progress... Will show other methods including a central server where you do not have to install .acme.sh on any zimbra server and just the deploy-zimbra-letsencrypt.sh script.
+
+If you have other methods, please share.
 
 
