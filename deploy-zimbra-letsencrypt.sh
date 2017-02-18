@@ -63,7 +63,7 @@ zimbra_certs=/opt/zimbra/ssl
 
 debug() {
   if [ $d == 1 ]; then
-	echo $1
+	echo "$1 - Hit Enter to Continue"
 	read var
   fi
 } 
