@@ -16,7 +16,7 @@ At this point we have acme.sh checking every day via cron to see if the certific
 Next we create our first Letsencrypt certificates. 
 
 # Method 1 (STANDALONE port 80)
-We will use the stand-alone method. Login as the user that acme.sh was installed as. Standalone listens on port 80 and is used by letsencrypt to verify you are who you say you are. To facilitate this, we stop the proxy that is listening at this port. 
+We will use the stand-alone method. Login as the user that acme.sh was installed as. Standalone listens on port 80 so it requires that acme.sh be runs as root to bind to port 80 and is used by letsencrypt to verify you are who you say you are. To facilitate this, we stop the proxy that is listening at this port. Note: if you require all zimbra logins via https (port 443), then you do not need to issue the zmproxyctl stop/start cycle.
 
 ```bash
 su - zimbra
