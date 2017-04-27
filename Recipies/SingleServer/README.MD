@@ -34,11 +34,11 @@ At this point we have a directory /home/XXX/.acme.sh/mail.example.com that conta
 We will use the DNS method.  Does not require initial outage of zimbra.
 
 ```bash
-acme.sh --issue --dns -d mail.example.com mail.example.net
+acme.sh --issue --dns -d mail.example.com -d mail.example.net
 ```
 add the DNS text records from the output above
 ```bash
-acme.sh --renew --dns -d mail.example.com mail.example.net
+acme.sh --renew --dns -d mail.example.com -d mail.example.net
 ```
 
 At this point we have a directory /home/XXX/.acme.sh/mail.example.com that contains the certificate. You can remove the TXT records from the zone. They are not needed anymore.
