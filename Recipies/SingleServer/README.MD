@@ -41,7 +41,7 @@ add the DNS text records from the output above
 acme.sh --renew --dns -d mail.example.com -d mail.example.net
 ```
 # Method 2B (DNS + API)
-We will use the DNS method but have acme.sh insert the TXT records automatically.  Does not require initial outage of zimbra. Check the list of supported DNS providers. In this example, we use cloudflare. Add the following entries to the account.conf file.  SAVED_CF='......' where this is your API key and SAVED_CF_Email='user@example.com'  
+We will use the DNS method but have acme.sh insert the TXT records automatically.  Does not require initial outage of zimbra. Check the list of supported DNS providers. In this example, we use cloudflare. Add the following entries to the account.conf file in the .acme.sh directory.  SAVED_CF='......' where this is your API key from Cloudflare and SAVED_CF_Email='user@example.com'  
 
 ```bash
 acme.sh --issue --dns dns_cf -d mail.example.com -d mail.example.net
@@ -55,7 +55,7 @@ If you want to test this again and the 60 days hasn't expired. Do this:
 acme.sh --force --renew --dns -d mail.example.com -d mail.example.net
 ```
 
-At this point we have a directory /home/XXX/.acme.sh/mail.example.com that contains the certificate. You can remove the TXT records from the zone. They are not needed anymore.
+At this point we have a directory /home/XXX/.acme.sh/mail.example.com that contains the certificate. You can remove the TXT records from the zone if you manually added them. They are not needed anymore.
 
 # Method 3 (Stateless))
 Configure webserver to respond statelessly to challenges for a give account key. This requires a one-time nginx configuration change in zimbra.
