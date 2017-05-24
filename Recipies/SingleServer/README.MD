@@ -40,7 +40,7 @@ add the DNS text records from the output above
 ```bash
 acme.sh --renew --dns -d mail.example.com -d mail.example.net
 ```
-# Method 2B (DNS + API)
+# Method 2b (DNS + API)
 We will use the DNS method but have acme.sh insert the TXT records automatically.  Does not require initial outage of zimbra. Check the list of supported DNS providers. In this example, we use cloudflare. Add the following entries to the account.conf file in the .acme.sh directory.  SAVED_CF='......' where this is your API key from Cloudflare and SAVED_CF_Email='user@example.com'  
 
 ```bash
