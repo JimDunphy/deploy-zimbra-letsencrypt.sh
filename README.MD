@@ -22,6 +22,8 @@ acme.sh --issue --dns -d mail.example.com mail.example.net -d tmail.example.com
 Add DNS txt records to zones from output of command above
 ```bash
 acme.sh --renew -d mail.example.com -d mail.example.net -d tmail.example.com
+or (just the first entry)
+acme.sh --renew -d mail.example.com 
 ```
 You now have certificates that can be used by zimbra. Certificates are installed in .acme.sh using the first -d entry as the directory name ie. mail.example.com in this example.
 

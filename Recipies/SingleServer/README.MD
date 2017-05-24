@@ -30,7 +30,7 @@ exit
 ```
 At this point we have a directory /home/XXX/.acme.sh/mail.example.com that contains the certificate.
 
-# Method 2 (DNS)
+# Method 2a (DNS)
 We will use the DNS method.  Does not require initial outage of zimbra.
 
 ```bash
@@ -40,8 +40,60 @@ add the DNS text records from the output above
 ```bash
 acme.sh --renew --dns -d mail.example.com -d mail.example.net
 ```
+# Method 2B (DNS + API)
+We will use the DNS method but have acme.sh insert the TXT records automatically.  Does not require initial outage of zimbra. Check the list of supported DNS providers. In this example, we use cloudflare. Add the following entries to the account.conf file.  SAVED_CF='......' where this is your API key and SAVED_CF_Email='user@example.com'  
+
+```bash
+acme.sh --issue --dns dns_cf -d mail.example.com -d mail.example.net
+```
+the DNS text records will be automatically added for the 2 above domains. From here on, the renewal process must be --renew and not --issue. 
+```bash
+acme.sh --renew --dns -d mail.example.com -d mail.example.net
+```
+If you want to test this again and the 60 days hasn't expired. Do this:
+```bash
+acme.sh --force --renew --dns -d mail.example.com -d mail.example.net
+```
 
 At this point we have a directory /home/XXX/.acme.sh/mail.example.com that contains the certificate. You can remove the TXT records from the zone. They are not needed anymore.
+
+# Method 3 (Stateless))
+Configure webserver to respond statelessly to challenges for a give account key. This requires a one-time nginx configuration change in zimbra.
+###1. Get account key thumbprint:
+```bash
+acme.sh --register-account
+[Thu Apr 17 12:23:09 PDT 2017] Registering account
+[Thu Apr 17 12:23:09 PDT 2017] Already registered
+[Thu Apr 17 12:23:09 PDT 2017] Update success.
+[Thu Apr 17 12:23:09 PDT 2017] ACCOUNT_THUMBPRINT='6fXAG9VyG0IahirPEU2ZerUtItW2DHzDzD9wZaEKpqd'
+```
+###2. Configure nginx server to return account key thumbprint
+
+Locate the correct location at: /opt/zimbra/conf/nginx/includes
+https://wiki.zimbra.com/wiki/Zimbra_Proxy_Guide#Config_Files_and_Config_Templates
+
+http {
+...
+server {
+...
+  location ~ "^/\.well-known/acme-challenge/([-_a-zA-Z0-9]+)$" {
+    default_type text/plain;
+    return 200 "6fXAG9VyG0IahirPEU2ZerUtItW2DHzDzD9wZaEKpqd";
+  }
+...
+}
+}
+
+Restart nginx
+```bash
+su - zimbra
+zmnginxctl restart
+```
+
+###3. Issue Cert
+```bash
+acme.sh --issue -d mail.example.com -d mail.example.net
+```
 
 # Last Step for acme.sh
 Modify the crontab entry that was created and add --force. Change it to say 59 days.  
