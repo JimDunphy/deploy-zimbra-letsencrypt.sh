@@ -48,16 +48,22 @@ acme.sh --issue --dns dns_cf -d mail.example.com -d mail.example.net
 ```
 the DNS text records will be automatically added for the 2 above domains. From here on, the renewal process must be --renew and not --issue. 
 ```bash
-acme.sh --renew --dns -d mail.example.com -d mail.example.net
+acme.sh --renew -d mail.example.com -d mail.example.net
 ```
 If you want to test this again and the 60 days hasn't expired. Do this:
 ```bash
-acme.sh --force --renew --dns -d mail.example.com -d mail.example.net
+acme.sh --force --renew -d mail.example.com -d mail.example.net
 ```
 
 At this point we have a directory /home/XXX/.acme.sh/mail.example.com that contains the certificate. You can remove the TXT records from the zone if you manually added them. They are not needed anymore.
 
-# Method 3 (Stateless))
+NOTE/WARNINGS: DNS renewal has some oddities. If you invoke the DNS method then renew with the standalone method and then try DNS again as in:
+```bash
+ acme.sh --force --renew --dns -d mail.example.com -d mail.example.net
+```
+ it will error out with nc listen errors. It tries to do 'nc -l' without an ip address because acme.sh keeps a config file of the last method that was used to issue the cert. Generally this isn't a problem if you use the dnsapi and keep the issu/renewal the same.
+
+# Method 3 (Stateless)
 Configure webserver to respond statelessly to challenges for a give account key. This requires a one-time nginx configuration change in zimbra.
 ###1. Get account key thumbprint:
 ```bash
