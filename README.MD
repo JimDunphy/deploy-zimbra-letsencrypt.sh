@@ -43,7 +43,7 @@ As root:
 ```bash
 su - 
 mv /tmp/letsencrypt /opt/
-chown zimbra /opt/letscencrypt
+chown zimbra /opt/letsencrypt
 exit
 ```
 modify the following variables in deploy-zimbra-letsencrypt.sh
