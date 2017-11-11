@@ -62,7 +62,6 @@ Run as zimbra user:
 su - zimbra
 ./deploy-zimbra-letsencrypt.sh
 ```
-
 # Renewal 
 Note: needs to be done 59 days or less or will have to repeat challenge/Response.  Run with user that installed acme.sh
 ```bash
@@ -74,6 +73,8 @@ run from cron
 - Run renewal every 59 days or less 
 - Run deploy-zimbra-letscencrypt.sh every 60 days or so
 - Bonus: add checks to alert of any failures of acme.sh/CERTs
+Example Cron Entry:
+- 5 1 * * * su - zimbra /opt/letsencrypt/deploy-zimbra-letsencrypt.sh
 
 # Other uses or multi-host
 - use different server to create letsencrypt certs
