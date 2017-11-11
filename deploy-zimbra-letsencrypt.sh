@@ -92,7 +92,7 @@ fi
 #   exit 1
 #fi
 #
-/bin/cp -rf $user/.acme.sh .
+/bin/cp -rf $user/.acme.sh/$domain $certs
 if [ $? == 1 ]; then
    say "Check permissions: CERT cp failed for $user/.acme.sh"
 fi
