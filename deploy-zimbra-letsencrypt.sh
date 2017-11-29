@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Author: Jim Dunphy <jad aesir.com>
 # License (ISC): It's yours. Enjoy
 # Date: 10/9/2016
@@ -47,11 +46,11 @@
 #     It is currently set for 60 days from letsencrypt to match when
 #     we will be getting new certs. This is the days to the CERT will expire.
 min=60 #make larger to make zimbra load a new CERT
-domain="mail.example.com"
-user="/home/YourName" # ~user/.acme.sh --- owner that runs acme.sh
+domain="mail.yourdomain.ca"
+user="/home/your_user" # ~user/.acme.sh --- owner that runs acme.sh
 # verbose output
 d=1  # change to 0 if run from cron
-exit # comment this out after adjusting the top two values
+#exit # comment this out after adjusting the top two values
 
 # This is the result of running acme.sh and your letsencrypt certs
 # As zimbra: cp -r ~user/.acme.sh /opt/letsencrypt/
@@ -92,19 +91,22 @@ fi
 #   exit 1
 #fi
 #
+rm -rf /opt/letsencrypt/.acme.sh
+mkdir /opt/letsencrypt/.acme.sh
 /bin/cp -rf $user/.acme.sh/$domain $certs
 if [ $? == 1 ]; then
    say "Check permissions: CERT cp failed for $user/.acme.sh"
 fi
 
 # Step 2 - backup (comment out later)
-cd $zimbra_certs
-tar cvf zimbra.tar.$(date "+%Y%m%d") zimbra
+#cd $zimbra_certs
+#tar cvf zimbra.tar.$(date "+%Y%m%d") zimbra
 
 # Step 3 - verify cert
 cd "$certs"
 # from: https://www.identrust.com/certificates/trustid/root-download-x3.html
 # append IdentTrust CA 
+echo >>fullchain.cer #adds a newline between the new cert otherwise will not verify
 cat << EOF >> fullchain.cer
 -----BEGIN CERTIFICATE-----
 MIIDSjCCAjKgAwIBAgIQRK+wgNajJ7qJMDmGLvhAazANBgkqhkiG9w0BAQUFADA/
@@ -148,4 +150,5 @@ cd $certs
 /opt/zimbra/bin/zmcertmgr deploycrt comm $domain.cer fullchain.cer
 
 debug "If no errors than proceed to restart zimbra"
-zmcontrol restart
+
+/opt/zimbra/bin/zmcontrol restart
