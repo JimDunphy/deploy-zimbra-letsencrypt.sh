@@ -63,15 +63,15 @@ su - zimbra
 ./deploy-zimbra-letsencrypt.sh
 ```
 # Renewal 
-Note: needs to be done 59 days or less or will have to repeat challenge/Response.  Run with user that installed acme.sh
+Note: needs to be done 30 days or less or will have to repeat challenge/Response for the manual DNS method.  Run with user that installed acme.sh
 ```bash
 acme.sh --force --renew -d mail.example.com -d mail.example.net -d tmail.example.com
 ```
 
 # Unattended Operation 
 run from cron
-- Run renewal every 59 days or less 
-- Run deploy-zimbra-letscencrypt.sh every 60 days or so
+- Run acme renewal every 90 days or less depending on method used
+- Run deploy-zimbra-letscencrypt.sh at an interval to reflect the renewals
 - Bonus: add checks to alert of any failures of acme.sh/CERTs
 Example Cron Entry:
 - 5 1 * * * su - zimbra /opt/letsencrypt/deploy-zimbra-letsencrypt.sh
