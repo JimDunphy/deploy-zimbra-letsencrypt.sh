@@ -30,8 +30,8 @@ exit
 ```
 At this point we have a directory /home/XXX/.acme.sh/mail.example.com that contains the certificate.
 
-# Method 2a (DNS)
-We will use the DNS method.  Does not require initial outage of zimbra.
+# Method 2a (DNS = Manual challenge)
+Use the DNS method but add the TXT RR chellenge manually.  Does not require initial outage of zimbra.
 
 ```bash
 acme.sh --issue --dns -d mail.example.com -d mail.example.net
@@ -40,8 +40,10 @@ add the DNS text records from the output above
 ```bash
 acme.sh --renew --dns -d mail.example.com -d mail.example.net
 ```
-# Method 2b (DNS + API)
-We will use the DNS method but have acme.sh insert the TXT records automatically.  Does not require initial outage of zimbra. Check the list of supported DNS providers. In this example, we use cloudflare. Add the following entries to the account.conf file in the .acme.sh directory.  SAVED_CF='......' where this is your API key from Cloudflare and SAVED_CF_Email='user@example.com'  
+Note: If you rewnew the certificate within 30 days, you do not have to perform the --issue again. This number has decreased in the past so watch this. Ref: https://community.letsencrypt.org/t/failed-validation-limit-validation-ip-addresses-and-authorization-lifetime/31520
+If you use this method, you would need to do --force and --renew every 30 days or you would have to perform an --issue and add the challenge again.
+# Method 2b (DNS + API = Automoatic challenge)
+Use the DNS method but have acme.sh insert the TXT RR challenge automatically.  Does not require initial outage of zimbra. Check the list of supported DNS providers. In this example, we use cloudflare. Add the following entries to the account.conf file in the .acme.sh directory.  SAVED_CF='......' where this is your API key from Cloudflare and SAVED_CF_Email='user@example.com'  
 
 ```bash
 acme.sh --issue --dns dns_cf -d mail.example.com -d mail.example.net
@@ -62,6 +64,23 @@ NOTE/WARNINGS: DNS renewal has some oddities. If you invoke the DNS method then 
  acme.sh --force --renew --dns -d mail.example.com -d mail.example.net
 ```
  it will error out with nc listen errors. It tries to do 'nc -l' without an ip address because acme.sh keeps a config file of the last method that was used to issue the cert. Generally this isn't a problem if you use the dnsapi and keep the issu/renewal the same.
+
+# Method 2c (DNS Alias + API = Automoatic challenge)
+Use the DNS method but have acme.sh insert the TXT RR challenge automatically via a CNAME lookup via the API method.  Does not require initial outage of zimbra. Does not require that the domain to verify have an API. Check the list of supported DNS providers. In this example, we use cloudflare but it doesn require the domain be managed by Cloudflare. Add the following entries to the account.conf file in the .acme.sh directory.  SAVED_CF='......' where this is your API key from Cloudflare for any domain and SAVED_CF_Email='user@example.com'. It allows one to decouple the API for trusted domains so has a slightly higher security profile.
+```bash
+acme.sh --issue --dns dns_cf -d tmail.example.com --challenge-alias CFdomainUhave.com -d mail.example.net -d tmail.example.net
+```
+Note: CFdomainUhave.com is the Cloudflare account where you get your API's keys for. You need to create the following CNAME entries with the domains you want to verify with.
+```bash
+; in example.com zone file
+;
+_acme-challenge.example.com. IN CNAME _acme-challenge.CFdomainUhave.com.
+_acme-challenge.tmail.example.com. IN CNAME _acme-challenge.CFdomnainUhave.com.
+;
+; in example.net zone file
+_acme-challenge.tmail.example.net. IN CNAME _acme-challenge.CFdomnainUhave.com.
+_acme-challenge.mail.example.net. IN CNAME _acme-challenge.CFdomainUhave.com.
+```
 
 # Method 3 (Stateless)
 Configure webserver to respond statelessly to challenges for a give account key. This requires a one-time nginx configuration change in zimbra.
