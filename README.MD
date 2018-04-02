@@ -56,15 +56,16 @@ d=1  # change to 0 if run from cron
 exit # comment this out after adjusting the top two values
 ```
 # General Overview
-- issue a letsencrypt certificate via any method from acme.sh
-- run deploy-zimbra-letsencrypt.sh 
+Steps:
+1) issue a letsencrypt certificate via any method from acme.sh
+2) run deploy-zimbra-letsencrypt.sh 
 
-deploy-zimbra-letsencrypt.sh understands the directory format used by acme.sh and will include the intermediate certificate so that zimbra can verify and install letsencrypt certificates. It has the following steps that it performs.
+deploy-zimbra-letsencrypt.sh understands the directory format used by acme.sh and will include the intermediate certificate to the chain so that zimbra can verify and use letsencrypt certificates. The script has the following steps that it performs.
 - verify it's time to update certs
 - verify the certs have permission to be copied by zimbra user
-- backup current certs used by zimbra
-- verify the certs can be understood by zimbra
-- deploy the certifcates
+- backup old certs used by zimbra
+- verify the new certs can be understood by zimbra
+- deploy the new certifcates
 - restart zimbra to use the new certificates
 
 # Install Certificates
