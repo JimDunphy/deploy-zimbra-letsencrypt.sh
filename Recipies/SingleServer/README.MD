@@ -42,8 +42,8 @@ acme.sh --renew --dns -d mail.example.com -d mail.example.net
 ```
 Note: If you rewnew the certificate within 30 days, you do not have to perform the --issue again. This number has decreased in the past so watch this. Ref: https://community.letsencrypt.org/t/failed-validation-limit-validation-ip-addresses-and-authorization-lifetime/31520
 If you use this method, you would need to do --force and --renew every 30 days or you would have to perform an --issue and add the challenge again.
-# Method 2b (DNS + API = Automoatic challenge)
-Use the DNS method but have acme.sh insert the TXT RR challenge automatically.  Does not require initial outage of zimbra. Check the list of supported DNS providers. In this example, we use cloudflare. Add the following entries to the account.conf file in the .acme.sh directory.  SAVED_CF='......' where this is your API key from Cloudflare and SAVED_CF_Email='user@example.com'  
+# Method 2b (DNS + API = Automatic challenge)
+Use the DNS method but have acme.sh insert the TXT resource record challenge automatically.  Does not require initial outage of zimbra. Check the list of supported DNS providers. In this example, we use cloudflare. Add the following entries to the account.conf file in the .acme.sh directory.  SAVED_CF='......' where this is your API key from Cloudflare and SAVED_CF_Email='user@example.com'  
 
 ```bash
 acme.sh --issue --dns dns_cf -d mail.example.com -d mail.example.net
@@ -65,11 +65,8 @@ NOTE/WARNINGS: DNS renewal has some oddities. If you invoke the DNS method then 
 ```
  it will error out with nc listen errors. It tries to do 'nc -l' without an ip address because acme.sh keeps a config file of the last method that was used to issue the cert. Generally this isn't a problem if you use the dnsapi and keep the issu/renewal the same.
 
-# Method 2c (DNS Alias + API = Automoatic challenge)
-Use the DNS method but have acme.sh insert the TXT RR challenge automatically via a CNAME lookup via the API method.  Does not require initial outage of zimbra. Does not require that the domain to verify have an API. Check the list of supported DNS providers. In this example, we use cloudflare but it doesn require the domain be managed by Cloudflare. Add the following entries to the account.conf file in the .acme.sh directory.  SAVED_CF='......' where this is your API key from Cloudflare for any domain and SAVED_CF_Email='user@example.com'. It allows one to decouple the API for trusted domains so has a slightly higher security profile.
-```bash
-acme.sh --issue --dns dns_cf -d tmail.example.com --challenge-alias CFdomainUhave.com -d mail.example.net -d tmail.example.net
-```
+# Method 2c (DNS Alias + API = Automatic challenge)
+Use the DNS method but have acme.sh insert the TXT resource record challenge automatically. Requires the use of a CNAME for the domains to verify.  Does not require initial outage of zimbra. Does not require that the domains to verify have an API. Check the list of supported DNS providers. Follow the steps in method 2b to establish your API keys. It allows one to decouple the API for trusted domains so has a slightly higher security profile given that acme.sh can not modify/update your trusted zone... only the CNAME's for the trusted zone that you need certificates for.
 Note: CFdomainUhave.com is the Cloudflare account where you get your API's keys for. You need to create the following CNAME entries with the domains you want to verify with.
 ```bash
 ; in example.com zone file
@@ -80,6 +77,14 @@ _acme-challenge.tmail.example.com. IN CNAME _acme-challenge.CFdomnainUhave.com.
 ; in example.net zone file
 _acme-challenge.tmail.example.net. IN CNAME _acme-challenge.CFdomnainUhave.com.
 _acme-challenge.mail.example.net. IN CNAME _acme-challenge.CFdomainUhave.com.
+```
+Create the initial certificate like this.
+```bash
+acme.sh --issue --dns dns_cf -d tmail.example.com --challenge-alias CFdomainUhave.com -d mail.example.net -d tmail.example.net
+```
+And renew the certificate anytime like this.
+```bash
+acme.sh --renew --dns dns_cf -d tmail.example.com --challenge-alias CFdomainUhave.com -d mail.example.net -d tmail.example.net
 ```
 
 # Method 3 (Stateless)
