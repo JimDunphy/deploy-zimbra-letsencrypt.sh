@@ -55,6 +55,12 @@ user="/home/YourName" # ~user/.acme.sh --- owner that runs acme.sh
 d=1  # change to 0 if run from cron
 exit # comment this out after adjusting the top two values
 ```
+# General Overview
+- issue a letsencrypt certificate via any method from acme.sh
+- run deploy-zimbra-letsencrypt.sh 
+
+Deploy-zimbra-letsencrypt.sh understands the directory format used by acme.sh and will include the intermediate certificate so that zimbra can verify and install letsencrypt certificates.
+
 # Install Certificates
 Script will stop at each step waiting for a CR when d=1
 Run as zimbra user:
@@ -63,7 +69,7 @@ su - zimbra
 ./deploy-zimbra-letsencrypt.sh
 ```
 # Renewal 
-Note: needs to be done 30 days or less or will have to repeat challenge/Response for the manual DNS method.  Run with user that installed acme.sh
+Note: needs to be done 30 days or less or you will have to repeat challenge/Response for the manual DNS method. See recipies for more detail.
 ```bash
 acme.sh --force --renew -d mail.example.com -d mail.example.net -d tmail.example.com
 ```
