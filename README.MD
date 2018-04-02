@@ -22,7 +22,7 @@ acme.sh --issue --dns -d mail.example.com mail.example.net -d tmail.example.com
 Add DNS txt records to zones from output of command above
 ```bash
 acme.sh --renew -d mail.example.com -d mail.example.net -d tmail.example.com
-or (just the first entry)
+or (just the first entry - acme.sh knows to do the rest)
 acme.sh --renew -d mail.example.com 
 ```
 You now have certificates that can be used by zimbra. Certificates are installed in .acme.sh using the first -d entry as the directory name ie. mail.example.com in this example.
@@ -31,7 +31,7 @@ Note: if you don't mind taking an outage witih zimbra. The following method migh
 ```bash
 acme.sh --issue --standalone -d mail.example.com -d mail.example.net -d tmail.example.com
 ```
-Note: this will operate at port 80 which is why zimbra needs to be shutdown and will handle the challenge/Response automatically without any extra steps.
+The --standalone option results in acme.sh listening at port 80 and run as root which is why zimbra needs to be shutdown so the script can listen for the challenge. It will handle the challenge/Response automatically without any extra steps.
 
 # Set up  deploy-zimbra-letsencrypt.sh
 As zimbra user:
@@ -59,17 +59,23 @@ exit # comment this out after adjusting the top two values
 - issue a letsencrypt certificate via any method from acme.sh
 - run deploy-zimbra-letsencrypt.sh 
 
-Deploy-zimbra-letsencrypt.sh understands the directory format used by acme.sh and will include the intermediate certificate so that zimbra can verify and install letsencrypt certificates.
+deploy-zimbra-letsencrypt.sh understands the directory format used by acme.sh and will include the intermediate certificate so that zimbra can verify and install letsencrypt certificates. It has the following steps that it performs.
+- verify it's time to update certs
+- verify the certs have permission to be copied by zimbra user
+- backup current certs used by zimbra
+- verify the certs can be understood by zimbra
+- deploy the certifcates
+- restart zimbra to use the new certificates
 
 # Install Certificates
-Script will stop at each step waiting for a CR when d=1
+Script will stop at each step waiting for a return/enter when d=1 so you can watch it manually.
 Run as zimbra user:
 ```bash
 su - zimbra
 ./deploy-zimbra-letsencrypt.sh
 ```
 # Renewal 
-Note: needs to be done 30 days or less or you will have to repeat challenge/Response for the manual DNS method. See recipies for more detail.
+Note: needs to be done 30 days or less or you will have to repeat challenge/Response for the manual DNS method. Use another method every 90 days if this isn't acceptable including the DNS autmoatic modes. See recipies for more detail.
 ```bash
 acme.sh --force --renew -d mail.example.com -d mail.example.net -d tmail.example.com
 ```
