@@ -66,25 +66,25 @@ NOTE/WARNINGS: DNS renewal has some oddities. If you invoke the DNS method then 
  it will error out with nc listen errors. It tries to do 'nc -l' without an ip address because acme.sh keeps a config file of the last method that was used to issue the cert. Generally this isn't a problem if you use the dnsapi and keep the issu/renewal the same.
 
 # Method 2c (DNS Alias + API = Automatic challenge)
-Use the DNS method but have acme.sh insert the TXT resource record challenge automatically. Requires the use of a CNAME for the domains to verify.  Does not require initial outage of zimbra. Does not require that the domains to verify have an API. Check the list of supported DNS providers. Follow the steps in method 2b to establish your API keys. It allows one to decouple the API for trusted domains so has a slightly higher security profile given that acme.sh can not modify/update your trusted zone... only the CNAME's for the trusted zone that you need certificates for.
+Use the DNS method but have acme.sh insert the TXT challenge resource records automatically. Requires the use of a CNAME for the actual domains to verify.  It does not require an initial outage of zimbra as with the other DNS methods. It also does not require that the domains to verify have an API key or even be under the control of Zimbra. Check the list of supported DNS providers under acme.sh in the dnsapi directory. Follow the steps in method 2b to establish your API keys initially for the CFdomainUhave.com. This method allows one to decouple the API for more trusted domains so it has a slightly higher security profile given that acme.sh can not modify/update your trusted zone files. As with all the DNS methods, you don't have to perform this action on the zimbra server if you utlize a central server to generate certificates.
 Note: CFdomainUhave.com is the Cloudflare account where you get your API's keys for. You need to create the following CNAME entries with the domains you want to verify with.
 ```bash
-; in example.com zone file
+; in example.com zone file (this would be a domain under zimbra you want a cert for)
 ;
 _acme-challenge.example.com. IN CNAME _acme-challenge.CFdomainUhave.com.
-_acme-challenge.tmail.example.com. IN CNAME _acme-challenge.CFdomnainUhave.com.
+_acme-challenge.tmail.example.com. IN CNAME _acme-challenge.CFdomainUhave.com.
 ;
-; in example.net zone file
-_acme-challenge.tmail.example.net. IN CNAME _acme-challenge.CFdomnainUhave.com.
+; in example.net zone file (this would be a domain under zimbra you want a cert for)
+_acme-challenge.tmail.example.net. IN CNAME _acme-challenge.CFdomainUhave.com.
 _acme-challenge.mail.example.net. IN CNAME _acme-challenge.CFdomainUhave.com.
 ```
 Create the initial certificate like this.
 ```bash
 acme.sh --issue --dns dns_cf -d tmail.example.com --challenge-alias CFdomainUhave.com -d mail.example.net -d tmail.example.net
 ```
-And renew the certificate anytime like this.
+And renew the certificate anytime like this. Note: renew/issue appear to be the same for DNS after 30 days for the DNS method so just use the --issue.
 ```bash
-acme.sh --renew --dns dns_cf -d tmail.example.com --challenge-alias CFdomainUhave.com -d mail.example.net -d tmail.example.net
+acme.sh --issue --dns dns_cf -d tmail.example.com --challenge-alias CFdomainUhave.com -d mail.example.net -d tmail.example.net
 ```
 
 # Method 3 (Stateless)
