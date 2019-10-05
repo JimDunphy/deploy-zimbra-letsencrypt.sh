@@ -20,7 +20,7 @@ cd acme.sh
 Note: make the first -d entry your zmhostname
 ```bash
 chmod 755 .acme.sh   #to help zimbra user pull certs
-acme.sh --issue --dns -d mail.example.com mail.example.net -d tmail.example.com
+acme.sh --issue --dns -d mail.example.com -d mail.example.net -d tmail.example.com
 ```
 Add DNS txt records to zones from output of command above
 ```bash
