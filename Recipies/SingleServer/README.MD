@@ -1,7 +1,10 @@
 # Single Server Zimbra - fully automated
 
 # Reference
-See https://wiki.zimbra.com/wiki/index.php?curid=2441 and https://forums.zimbra.org/viewtopic.php?f=15&t=60781 as acme.sh has changed significantly over the years and there are simpler ways to use that tool and letsencrypt with zimbra now. If you use acme.sh with the deploy method, it gets really simple. see: wiki link for how to.
+See https://wiki.zimbra.com/wiki/JDunphy-Letsencrypt and https://forums.zimbra.org/viewtopic.php?f=15&t=60781 as acme.sh has changed significantly over the years and there are simpler ways to use that tool and letsencrypt with zimbra now. If you use acme.sh with the deploy method, it gets really simple. see: wiki link for how to.
+
+# WARNING
+What follows will probably no longer work given how much acme.sh has changed over the years. If it's acme.sh related, your best source of information is with https://github.com/acmesh-official/acme.sh
 
 # Initial Setup
 Install acme.sh as different user than zimbra.
