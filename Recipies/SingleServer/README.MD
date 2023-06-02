@@ -1,7 +1,8 @@
 # Single Server Zimbra - fully automated
 
 # Reference
-See https://wiki.zimbra.com/wiki/index.php?curid=2441 and https://forums.zimbra.org/viewtopic.php?f=15&t=60781 as acme.sh has changed significantly over the years and there are simpler ways to use that tool and letsencrypt with zimbra now. If you use acme.sh with the deploy method, it gets really simple. see: wiki link for how to.
+See https://wiki.zimbra.com/wiki/JDunphy-Letsencrypt and https://forums.zimbra.org/viewtopic.php?f=15&t=60781 as acme.sh has changed significantly over the years and there are simpler ways to use that tool and letsencrypt with zimbra now. If you use acme.sh with the deploy method, it gets really simple. see above wiki link for how to.
+
 
 # Initial Setup
 Install acme.sh as different user than zimbra.
@@ -46,7 +47,7 @@ acme.sh --renew --dns -d mail.example.com -d mail.example.net
 Note: If you rewnew the certificate within 30 days, you do not have to perform the --issue again. This number has decreased in the past so watch this. Ref: https://community.letsencrypt.org/t/failed-validation-limit-validation-ip-addresses-and-authorization-lifetime/31520
 If you use this method, you would need to do --force and --renew every 30 days or you would have to perform an --issue and add the challenge again.
 # Method 2b (DNS + API = Automatic challenge)
-Use the DNS method but have acme.sh insert the TXT resource record challenge automatically.  Does not require initial outage of zimbra. Check the list of supported DNS providers. In this example, we use cloudflare. Add the following entries to the account.conf file in the .acme.sh directory.  SAVED_CF='......' where this is your API key from Cloudflare and SAVED_CF_Email='user@example.com'  
+Use the DNS method but have acme.sh insert the TXT resource record challenge automatically.  Does not require initial outage of zimbra. Check the list of supported DNS providers. In this example, we use cloudflare. Add the following entries to the account.conf file in the .acme.sh directory.  SAVED_CF_Key='......' where this is your API key from Cloudflare and SAVED_CF_Email='user@example.com'  
 
 ```bash
 acme.sh --issue --dns dns_cf -d mail.example.com -d mail.example.net
