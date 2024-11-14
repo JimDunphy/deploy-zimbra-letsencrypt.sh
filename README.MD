@@ -1,7 +1,10 @@
 # deploy-zimbra-letsencrypt.sh
 
-# Reference
-See https://wiki.zimbra.com/wiki/JDunphy-Letsencrypt and https://forums.zimbra.org/viewtopic.php?f=15&t=60781 as acme.sh has changed significantly over the years and there are simpler ways to use that tool and letsencrypt with zimbra now. If you use acme.sh with the deploy method, it gets really simple. see above wiki link for how to.
+# DO NOT USE THIS SCRIPT 
+!!!! there are much better ways than this script from 2017 !!!!
+* Ref: https://wiki.zimbra.com/wiki/JDunphy-LE-Easy  
+* Ref: https://wiki.zimbra.com/wiki/JDunphy-Letsencrypt  (more detail)
+
 
 # Purpose
 Simple method to install letsencrypt certificates with Zimbra 8.7+ without installing excessive external packages and software. Keep it simple, flexible, and allow to choose best method for certs.  Note: Running zmcertmgr as the zimbra user makes this method 8.7+ specific. This is an automated script that is run from cron. If the CERT hasn't met some minimum threshold (min), it will exit and is safe to call daily from cron.
